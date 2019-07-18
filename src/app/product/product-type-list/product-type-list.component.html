@@ -1,0 +1,103 @@
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <!-- <div class="preloader">
+      <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Admin Pro</p>
+      </div>
+    </div>
+   -->  <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" style="min-height: 277px;">
+      <!-- ============================================================== -->
+      <!-- Topbar header - style you can find in pages.scss -->
+      <app-header></app-header>
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Left Sidebar - style you can find in sidebar.scss  -->
+      <app-sidenavbar></app-sidenavbar>
+      <!-- ============================================================== -->
+      <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+          <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">Product Types List</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                        <li class="breadcrumb-item">Product</li>
+                        <li class="breadcrumb-item">Product Type</li>
+                        <li class="breadcrumb-item active">Product Types List</li>
+                    </ol>
+                </div>
+                <div>
+                    <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group float-left">
+                                <!-- <label >Search</label> -->
+                                <input type="text" name="search" [(ngModel)]="search" class="form-control" placeholder="Search">
+                            </div>
+                            <div class="form-group float-right">
+                                <i (click)="viewAddProductType()" title="Add Product Type" class="mdi mdi-cart-plus btn btn-info"></i>
+                            </div>
+                             <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th (click)="sort('product_type')">Name
+                                                <span class="fa" *ngIf="key =='product_type'" [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th (click)="sort('status')">Email
+                                                <span class="fa" *ngIf="key =='status'" [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of productTypes | orderBy: key : reverse | filter:search | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                                            <td>{{ item.product_type }}</td>
+                                            <td>
+                                              <span *ngIf="item.status === '2'" class="label label-danger">In-Active</span>
+                                              <span *ngIf="item.status === '1'" class="label label-info">Active</span>
+                                            </td>
+                                            <td>
+                                              <i (click)="editProductType(item.id)" class="mdi mdi-pencil btn btn-success" style="padding: 0px 6px;"></i>
+                                              <i  (click)="deleteProductType(item.id)"  class="mdi mdi-delete btn btn-danger" style="padding: 0px 6px;"></i>
+                                            </td>
+                                       </tr>
+                                    </tbody>
+                                </table>
+                                <pagination-controls maxSize="5" style="float:right;" (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <app-footer></app-footer>
+
+      </div>
+    </div>
+  </body>
