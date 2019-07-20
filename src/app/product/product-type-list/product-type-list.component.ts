@@ -41,4 +41,13 @@ export class ProductTypeListComponent implements OnInit {
     // this.router.navigate(['add-product-type']);
   }
 
+  editProductType(id: string) {
+    window.location.href = 'edit-product-type/' + id;
+  }
+
+  deleteProductType(id: string) {
+    this.productTypeService.deleteProductType(id);
+    this.toastr.success('Product Type Deleted Successfully!!', 'Product Type');
+  }
+
 }

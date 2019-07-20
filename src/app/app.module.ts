@@ -25,11 +25,18 @@ import { AdduserComponent } from './user/adduser/adduser.component';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter'; // importing the module for searching
 import { Ng2OrderModule } from 'ng2-order-pipe'; // imported for sorting list purpose
-import { NgxPaginationModule } from 'ngx-pagination'; // imported for Pagination Purpose
+import { NgxPaginationModule } from 'ngx-pagination';
+import { OrdersComponent } from './restaurant/orders/orders.component';
+import { AddOrderComponent } from './restaurant/add-order/add-order.component';
+import { AddFoodComponent } from './restaurant/add-food/add-food.component';
+import { FoodsComponent } from './restaurant/foods/foods.component'; // imported for Pagination Purpose
+
+import { FoodName } from './customPipes/food.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FoodName,
     LoginComponent,
     RoutingComponents,
     DashboardComponent,
@@ -38,6 +45,10 @@ import { NgxPaginationModule } from 'ngx-pagination'; // imported for Pagination
     FooterComponent,
     UserlistComponent,
     AdduserComponent,
+    OrdersComponent,
+    AddOrderComponent,
+    AddFoodComponent,
+    FoodsComponent,
   ],
   imports: [
     BrowserModule,

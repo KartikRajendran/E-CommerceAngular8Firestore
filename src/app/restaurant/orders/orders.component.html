@@ -33,19 +33,19 @@
 
         <div class="row page-titles">
           <div class="col-md-5 align-self-center">
-            <h3 class="text-themecolor">Product List</h3>
+            <h3 class="text-themecolor">Order List</h3>
           </div>
           <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-              <li class="breadcrumb-item">Product</li>
-              <li class="breadcrumb-item active">Product List</li>
+              <li class="breadcrumb-item">Order</li>
+              <li class="breadcrumb-item active">Orders List</li>
             </ol>
           </div>
           <div>
             <button
               class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i
-                class="ti-settings text-white"></i></button>
+                class="md mdi-basket-fill text-white"></i></button>
           </div>
         </div>
 
@@ -59,42 +59,42 @@
                   <input type="text" name="search" [(ngModel)]="search" class="form-control" placeholder="Search">
                 </div>
                 <div class="form-group float-right">
-                  <i (click)="viewAddProduct()" title="Add Product" class="mdi mdi-cart-plus btn btn-info"></i>
+                  <i (click)="viewAddOrder()" title="Add Order" class="mdi mdi-basket-fill btn btn-info"></i>
                 </div>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
                       <tr>
-                        <th (click)="sort('product_name')">Product Name
-                          <span class="fa" *ngIf="key =='product_name'"
+                        <th (click)="sort('orderNumber')">Order Number
+                          <span class="fa" *ngIf="key =='orderNumber'"
                             [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
                         </th>
-                        <th (click)="sort('product_type')">Product Type
-                          <span class="fa" *ngIf="key =='product_type'"
+                        <th (click)="sort('paymentMethod')">Payment Method
+                          <span class="fa" *ngIf="key =='paymentMethod'"
                             [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
                         </th>
-                        <th (click)="sort('price')">Price
-                          <span class="fa" *ngIf="key =='price'"
+                        <th (click)="sort('grandTotal')">Grand Total
+                          <span class="fa" *ngIf="key =='grandTotal'"
                             [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
                         </th>
-                        <th (click)="sort('discount')">Discount
+                        <!-- <th (click)="sort('discount')">Discount
                           <span class="fa" *ngIf="key =='discount'"
                             [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
-                        </th>
+                        </th> -->
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        *ngFor="let item of products | orderBy: key : reverse | filter:search | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-                        <td>{{ item.product_name }}</td>
-                        <td>{{ item.product_type }}</td>
-                        <td>₹ {{ item.price }}</td>
-                        <td>{{ item.discount }} %</td>
+                        *ngFor="let item of restaurantOrders | orderBy: key : reverse | filter:search | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                        <td>{{ item.orderNumber }}</td>
+                        <td>{{ item.paymentMethod }}</td>
+                        <td>₹ {{ item.grandTotal }}</td>
+                        <!-- <td>{{ item.discount }} %</td> -->
                         <td>
-                          <i (click)="editProduct(item.id)" class="mdi mdi-pencil btn btn-success"
+                          <i (click)="editOrder(item.id)" class="mdi mdi-pencil btn btn-success"
                             style="padding: 0px 6px;"></i>
-                          <i (click)="deleteProduct(item.id)" class="mdi mdi-delete btn btn-danger"
+                          <i (click)="deleteOrder(item.id)" class="mdi mdi-delete btn btn-danger"
                             style="padding: 0px 6px;"></i>
                         </td>
                       </tr>

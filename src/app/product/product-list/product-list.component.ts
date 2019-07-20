@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit {
               private toastr: ToastrService) { }
 
   // sorting
-  key = 'product_type'; // set default
+  key = 'product_name'; // set default
   reverse = false;
   // initializing p to one
   p = 1;
@@ -41,5 +41,13 @@ export class ProductListComponent implements OnInit {
     // this.router.navigate(['add-product-type']);
   }
 
+  editProduct(id: string) {
+    window.location.href = 'edit-product/' + id;
+  }
+
+  deleteProduct(id: string) {
+    this.productService.deleteProduct(id);
+    this.toastr.success('Product Deleted Successfully!!', 'Product');
+  }
 
 }

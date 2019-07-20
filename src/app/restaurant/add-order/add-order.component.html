@@ -1,0 +1,235 @@
+<body class="fix-header fix-sidebar card-no-border">
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <!-- <div class="preloader">
+        <div class="loader">
+          <div class="loader__figure"></div>
+          <p class="loader__label">Admin Pro</p>
+        </div>
+      </div>
+     -->
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+
+  <!-- ============================================================== -->
+  <!-- Main wrapper - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <div id="main-wrapper" style="min-height: 277px;">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <app-header></app-header>
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <app-sidenavbar></app-sidenavbar>
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+
+        <div class="row page-titles">
+          <div class="col-md-5 align-self-center">
+            <!-- <h3 class="text-themecolor">Form Layout</h3> -->
+          </div>
+          <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">Dashboard</li>
+              <li class="breadcrumb-item">Order</li>
+              <li class="breadcrumb-item active">{{formType}} Order</li>
+            </ol>
+          </div>
+          <div class="">
+            <button
+              class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i
+                class="mdi mdi-basket-fill text-white"></i></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">{{formType}} Order</h4>
+              </div>
+              <div class="card-body" style="padding-bottom:0px;">
+                <form [formGroup]="form" action="#">
+                  <div class="form-body">
+                    <!-- <h3 class="card-title">Person Info</h3>
+                      <hr> -->
+                    <div class="row p-t-20">
+                      <div class="col-md-6">
+                        <div class="form-group"
+                          [class.has-danger]="form.controls['orderNumber'].invalid && (form.controls['orderNumber'].dirty || form.controls['orderNumber'].touched)">
+                          <label class="control-label">Order Number</label>
+                          <input type="text" #orderNumber [(ngModel)]="order.orderNumber" formControlName="orderNumber"
+                            id="orderNumber" class="form-control" placeholder="Enter Order Number">
+                          <small
+                            *ngIf="form.controls['orderNumber'].invalid && (form.controls['orderNumber'].dirty || form.controls['orderNumber'].touched)"
+                            class="form-control-feedback"> order Name is Required Field</small>
+                        </div>
+                        <!-- <div *ngIf="form.controls['orderNumber'].invalid && (form.controls['orderNumber'].dirty || form.controls['orderNumber'].touched)" class="alert alert-danger">
+                          <div *ngIf="form.controls['orderNumber'].errors.required">
+                            order Name is required.
+                          </div>
+                        </div> -->
+                      </div>
+                      <!--/span-->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="paymentMethod" class="control-label">Payment Method</label>
+                          <select class="form-control custom-select" formControlName="paymentMethod" id="paymentMethod">
+                            <option *ngFor="let item of paymentMethods; let i = index" [value]="item">
+                              {{item}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <!--/span-->
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group"
+                          [class.has-danger]="form.controls['customerName'].invalid && (form.controls['customerName'].dirty || form.controls['customerName'].touched)">
+                          <label class="control-label">Customer Name</label>
+                          <input #customerName [(ngModel)]="order.customerName" type="text"
+                            formControlName="customerName" id="customerName" class="form-control"
+                            placeholder="Enter Customer Name">
+                          <small
+                            *ngIf="form.controls['customerName'].invalid && (form.controls['customerName'].dirty || form.controls['customerName'].touched)"
+                            class="form-control-feedback"> Customer Name is Required Field </small>
+                        </div>
+                      </div>
+                      <!--/span-->
+                      <div class="col-md-6">
+                        <div class="form-group"
+                          [class.has-danger]="form.controls['grandTotal'].invalid && (form.controls['grandTotal'].dirty || form.controls['grandTotal'].touched)">
+                          <label class="control-label">Grand Total</label>
+                          <input #grandTotal [(ngModel)]="order.grandTotal" type="text" formControlName="grandTotal" id="grandTotal" class="form-control" placeholder="Enter Grand Total">
+                          <small
+                            *ngIf="form.controls['grandTotal'].invalid && (form.controls['grandTotal'].dirty || form.controls['grandTotal'].touched)"
+                            class="form-control-feedback"> Grand Total is Required Field </small>
+                        </div>
+                      </div>
+                      <!--/span-->
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <button type="button" [disabled]="form.invalid" (click)="addorder()" class="btn btn-success"> <i class="fa fa-check"></i>
+                      {{formButon}}</button>
+                    <button type="button" class="btn btn-danger"> <i class="fa fa-times"></i> Cancel</button>
+                  </div>
+              </form>
+                  <hr>
+
+              <!-- </div>
+
+              <div class="card-body"> -->
+                <div class="form-group float-left">
+                  <!-- <label >Search</label> -->
+                  <input type="text" name="search" [(ngModel)]="search" class="form-control" placeholder="Search">
+                  <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button> -->
+                </div>
+                <div class="form-group float-right">
+                  <i (click)="reloadItemForm()" title="Add Item" data-toggle="modal" data-target="#itemModal"
+                    data-whatever="@fat" class="mdi mdi-basket-fill btn btn-info"> Add Item</i>
+                </div>
+                <div class="table-responsive">
+                  <table class="table color-table info-table">
+                    <thead>
+                      <tr>
+                        <th (click)="sort('item')">Item
+                          <span class="fa" *ngIf="key =='item'"
+                            [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
+                        </th>
+                        <th (click)="sort('price')">Price
+                          <span class="fa" *ngIf="key =='price'"
+                            [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
+                        </th>
+                        <th (click)="sort('quantity')">Quantity
+                          <span class="fa" *ngIf="key =='quantity'"
+                            [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
+                        </th>
+                        <th (click)="sort('total')">Total
+                          <span class="fa" *ngIf="key =='total'"
+                            [ngClass]="{'fa-chevron-up':reverse,'fa-chevron-down':!reverse}"></span>
+                        </th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let item of orderedItems | orderBy: key : reverse | filter:search | paginate: { itemsPerPage: 50, currentPage: p }; let i = index">
+                        <td>{{ item.item | foodName }}</td>
+                        <td>₹ {{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.total }}</td>
+                        <td>
+                          <i (click)="editItem(item.uid)" class="mdi mdi-pencil btn btn-success"
+                            style="padding: 0px 6px;"></i>
+                          <i (click)="deleteItem(item.uid)" class="mdi mdi-delete btn btn-danger"
+                            style="padding: 0px 6px;"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls maxSize="5" style="float:right;" (pageChange)="p = $event"></pagination-controls>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+          style="display: none;" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Item</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="itemForm">
+                  <div class="form-group">
+                    <label for="item" class="control-label">Select Item</label>
+                    <select (change)="selectedItem()" class="form-control custom-select" formControlName="item" id="item" placeholder="Select Item">
+                      <option *ngFor="let food of foods; let i = index" [value]="food.id" [selected]="food.id == orderItem.item">
+                        {{food.name}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="control-label">Price:</label>
+                    <input #price name="price" readonly="true" [(ngModel)]="orderItem.price" type="number" formControlName="price" class="form-control" id="price">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="control-label">Quantity:</label>
+                    <input (keyup)="calculateTotal($event)" (change)="calculateTotal($event)" [(ngModel)]="orderItem.quantity" #quantity type="number" formControlName="quantity" class="form-control" id="quantity">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="control-label">Total:</label>
+                    <input #total  readonly="true" [(ngModel)]="orderItem.total" type="number" formControlName="total" class="form-control" id="total">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button (click)="addorderedItems()" type="button" class="btn btn-primary">Add Item</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <app-footer></app-footer>
+
+    </div>
+  </div>
+</body>
