@@ -163,14 +163,14 @@
                     <tbody>
                       <tr
                         *ngFor="let item of orderedItems | orderBy: key : reverse | filter:search | paginate: { itemsPerPage: 50, currentPage: p }; let i = index">
-                        <td>{{ item.item | foodName }}</td>
+                        <td>{{ item.name }}</td>
                         <td>₹ {{ item.price }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.total }}</td>
                         <td>
-                          <i (click)="editItem(item.uid)" class="mdi mdi-pencil btn btn-success"
+                          <i (click)="editItem(item.uid,item.id)" class="mdi mdi-pencil btn btn-success"
                             style="padding: 0px 6px;"></i>
-                          <i (click)="deleteItem(item.uid)" class="mdi mdi-delete btn btn-danger"
+                          <i (click)="deleteItem(item.uid,item.id)" class="mdi mdi-delete btn btn-danger"
                             style="padding: 0px 6px;"></i>
                         </td>
                       </tr>

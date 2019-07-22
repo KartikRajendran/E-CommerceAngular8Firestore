@@ -20,6 +20,7 @@ export class AddOrderComponent implements OnInit {
   itemForm: FormGroup;
   paymentMethods = []; foods = [];
   orderedItems: any = [];
+  deleteItems: any = [];
   formType = 'Add';
   formButon = 'Save';
   orderId = '';
@@ -35,6 +36,8 @@ export class AddOrderComponent implements OnInit {
     price: 0,
     quantity: 0,
     total: 0,
+    name: '',
+    orderid: '',
   };
 
   constructor(private restaurantOrderService: RestaurantOrderService, private toastr: ToastrService,
@@ -65,8 +68,28 @@ export class AddOrderComponent implements OnInit {
           this.formType = 'Edit';
           this.formButon = 'Update';
           this.form.controls.id.patchValue(id);
+
+          of(this.getPaymentMethods()).subscribe(paymentMethods => {
+            this.paymentMethods = paymentMethods;
+          });
+
           this.form.controls.paymentMethod.patchValue(this.order.paymentMethod);
       });
+
+        this.itemService.getOrderedItemByOrderId(id).subscribe(res => {
+          res.forEach(el => {
+
+            let data: any = el.payload.doc.data();
+            data.id = el.payload.doc.id;
+            data.uid = this.orderedItems.length;
+            this.orderedItems.push(data);
+            console.log(this.orderItem);
+          });
+
+        //console.log(res);
+        // this.orderedItems = res;
+      });
+
     } else {
       of(this.getPaymentMethods()).subscribe(paymentMethods => {
         this.paymentMethods = paymentMethods;
@@ -93,8 +116,10 @@ export class AddOrderComponent implements OnInit {
       id: '',
       item: [''],
       price: ['', Validators.required],
+      name: [''],
       quantity: ['', Validators.required],
       total: ['', Validators.required],
+      orderId: '',
       uid: ''
     });
     this.foodService.getFoodsList().subscribe(res => {
@@ -111,36 +136,75 @@ export class AddOrderComponent implements OnInit {
     if (this.form.value.id == null || this.form.value.id === '') {
       this.restaurantOrderService.addRestaurantOrder(data).then(res => {
         this.orderId = res.id;
+
+        this.orderedItems.forEach(element => {
+          element.orderId = this.orderId;
+          console.log(element);
+          this.addItem(element);
+        });
+
         console.log(this.orderId);
       });
       // this.addItem();
       this.toastr.success('Order Added Successfully!!!', 'Order');
     } else {
-      this.restaurantOrderService.updateRestaurantOrder(this.form.value.id, data);
+
+      if (this.deleteItems.length > 0) {
+        this.deleteItems.forEach(element => {
+          this.itemService.deleteOrderedItem(element);
+        });
+      }
+      this.restaurantOrderService.updateRestaurantOrder(this.form.value.id, data).then(res => {
+
+        this.orderedItems.forEach(element => {
+          element.orderId = this.form.value.id;
+          console.log(element);
+          this.addItem(element);
+        });
+      });
       this.toastr.success('Order Updated Successfully!!!', 'Order');
     }
 
-    /* setTimeout(function() {
+    setTimeout(function() {
       window.location.href = 'order-list';
-    }, 3000 ); */
+    }, 3000 );
   }
 
   addorderedItems() {
-    this.itemForm.controls.uid.patchValue(this.orderedItems.length);
-    this.orderedItems.push(this.itemForm.value);
+
+    let index = this.orderedItems.findIndex(x => x.uid === this.itemForm.controls.uid.value);
+    console.log(this.itemForm.controls.uid.value);
+    if (index === -1) {
+      this.itemForm.controls.uid.patchValue(this.orderedItems.length);
+      this.orderedItems.push(this.itemForm.value);
+    } else {
+      this.orderedItems[index] = this.itemForm.value;
+    }
     this.reloadItemForm();
-    // console.log(this.orderedItems);
+    this.calcGrandTotal();
+    console.log(this.orderedItems);
   }
 
-  addItem() {
-    const data = Object.assign({}, this.itemForm.value);
-    delete data.id;
+  calcGrandTotal() {
+    let grandTotal = 0;
+    this.orderedItems.forEach(el => {
+      grandTotal = grandTotal + (+el.total);
+    });
+    this.form.controls.grandTotal.patchValue(grandTotal);
+  }
 
-    if (this.itemForm.value.id == null || this.itemForm.value.id === '') {
+  addItem(item) {
+    /* const data = Object.assign({}, this.itemForm.value);*/
+    const data = item;
+    const itemId = data.id;
+    delete data.id;
+    delete data.uid;
+
+    if (itemId == null || itemId === '') {
       this.itemService.addOrderedItem(data);
       this.toastr.success('Item Added Successfully!!!', 'Add Item');
     } else {
-      this.itemService.updateOrderedItem(this.itemForm.value.id, data);
+      this.itemService.updateOrderedItem(itemId, data);
       this.toastr.success('Item Updated Successfully!!!', 'Edit Item');
     }
 
@@ -155,6 +219,7 @@ export class AddOrderComponent implements OnInit {
     const selectedFood = this.foods.find(x => x.id === this.itemForm.value.item);
     console.log(selectedFood);
     this.itemForm.controls.price.patchValue(selectedFood.price);
+    this.itemForm.controls.name.patchValue(selectedFood.name);
     this.itemForm.controls.quantity.patchValue(1);
     this.itemForm.controls.total.patchValue(selectedFood.price);
     console.log(this.itemForm.value);
@@ -167,13 +232,19 @@ export class AddOrderComponent implements OnInit {
   }
 
   editItem(uid: string) {
-    $('#itemModal').modal('show');
     const data = this.orderedItems.find(x => x.uid === uid);
     this.itemForm.setValue(data);
-    console.log(this.orderedItems.find(x => x.uid === uid));
+    $('#itemModal').modal('show');
   }
 
-  deleteItem(id) {
+  deleteItem(uid: string) {
+    const data = this.orderedItems.find(x => x.uid === uid);
 
+    this.orderedItems = this.orderedItems.filter(x => x.uid !== uid);
+    this.calcGrandTotal();
+
+    if (data.id != null && data.id !== '') {
+      this.deleteItems.push(data.id);
+    }
   }
 }

@@ -8,6 +8,7 @@ export interface OrderedItem {
   price: number;
   quantity: number;
   total: number;
+  name: string;
   orderid: string;
 }
 
@@ -40,6 +41,14 @@ export class OrderedItemService {
 
   getOrderedItemById(id) {
     return this.OrderedItemsCollection.doc<OrderedItem>(id).valueChanges();
+  }
+
+  getOrderedItemByOrderId(id) {
+    return this.db.collection('TBL_ORDERED_ITEM', ref => {
+      let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+        if (id) { query = query.where('orderId', '==', id) };
+      return query;
+    }).snapshotChanges();
   }
 
   updateOrderedItem(id: string, orderedItem: OrderedItem) {
