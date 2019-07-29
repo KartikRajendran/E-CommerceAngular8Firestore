@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userid', res[0].payload.doc.id);
           localStorage.setItem('user_role', data.role);
           localStorage.setItem('loggedin', 'true');
-          this.router.navigate(['dashboard']);
+          window.location.href = 'dashboard';
+          // this.router.navigate(['dashboard']);
         } else {
           this.toastr.warning('Password was incorrect!!!', 'Login');
         }
