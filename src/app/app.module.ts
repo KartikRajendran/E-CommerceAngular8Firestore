@@ -32,6 +32,10 @@ import { AddFoodComponent } from './restaurant/add-food/add-food.component';
 import { FoodsComponent } from './restaurant/foods/foods.component'; // imported for Pagination Purpose
 
 import { FoodName } from './customPipes/food.pipe';
+import { CategoryComponent } from './category/category.component';
+import { AddCategoryComponent } from './category/add-category/add-category.component';
+import { ServiceComponent } from './service/service.component';
+import { AddServiceComponent } from './service/add-service/add-service.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,10 @@ import { FoodName } from './customPipes/food.pipe';
     AddOrderComponent,
     AddFoodComponent,
     FoodsComponent,
+    CategoryComponent,
+    AddCategoryComponent,
+    ServiceComponent,
+    AddServiceComponent,
   ],
   imports: [
     BrowserModule,

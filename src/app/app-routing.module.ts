@@ -13,6 +13,10 @@ import { OrdersComponent } from './restaurant/orders/orders.component';
 import { AddOrderComponent } from './restaurant/add-order/add-order.component';
 import { AddFoodComponent } from './restaurant/add-food/add-food.component';
 import { FoodsComponent } from './restaurant/foods/foods.component';
+import { CategoryComponent } from './category/category.component';
+import { AddCategoryComponent } from './category/add-category/add-category.component';
+import { AddServiceComponent } from './service/add-service/add-service.component';
+import { ServiceComponent } from './service/service.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -34,6 +38,11 @@ const routes: Routes = [
     component: AddProductTypeComponent
   },
   {
+    path: 'add-category',
+    canActivate: [GuardService],
+    component: AddCategoryComponent
+  },
+  {
     path: 'add-product',
     canActivate: [GuardService],
     component: AddProductComponent
@@ -49,9 +58,34 @@ const routes: Routes = [
     component: AddProductComponent
   },
   {
+    path: 'service-list',
+    canActivate: [GuardService],
+    component: ServiceComponent
+  },
+  {
+    path: 'add-service',
+    canActivate: [GuardService],
+    component: AddServiceComponent
+  },
+  {
+    path: 'edit-service/:id',
+    canActivate: [GuardService],
+    component: AddServiceComponent
+  },
+  {
+    path: 'edit-category/:id',
+    canActivate: [GuardService],
+    component: AddCategoryComponent
+  },
+  {
     path: 'product-type-list',
     canActivate: [GuardService],
     component: ProductTypeListComponent
+  },
+  {
+    path: 'category-list',
+    canActivate: [GuardService],
+    component: CategoryComponent
   },
   {
     path: 'product-list',
@@ -99,5 +133,7 @@ export const RoutingComponents = [
   OrdersComponent,
   FoodsComponent,
   AddOrderComponent,
-  AddFoodComponent
+  AddFoodComponent,
+  CategoryComponent,
+  AddCategoryComponent,
 ];

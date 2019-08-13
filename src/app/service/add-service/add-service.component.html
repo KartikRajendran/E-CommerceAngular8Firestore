@@ -1,0 +1,142 @@
+<body class="fix-header fix-sidebar card-no-border">
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <!-- <div class="preloader">
+        <div class="loader">
+          <div class="loader__figure"></div>
+          <p class="loader__label">Admin Pro</p>
+        </div>
+      </div>
+     -->
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+
+  <!-- ============================================================== -->
+  <!-- Main wrapper - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <div id="main-wrapper" style="min-height: 277px;">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <app-header></app-header>
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <app-sidenavbar></app-sidenavbar>
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+
+        <div class="row page-titles">
+          <div class="col-md-5 align-self-center">
+            <!-- <h3 class="text-themecolor">Form Layout</h3> -->
+          </div>
+          <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">Dashboard</li>
+              <li class="breadcrumb-item">Service</li>
+              <li class="breadcrumb-item active">{{formType}} Service</li>
+            </ol>
+          </div>
+          <div class="">
+            <button
+              class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i
+                class="ti-shopping-cart text-white"></i></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">{{formType}} Service</h4>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="form" action="#">
+                  <div class="form-body">
+                    <!-- <h3 class="card-title">Person Info</h3>
+                      <hr> -->
+                    <div class="row p-t-20">
+                      <div class="col-md-6">
+                        <div class="form-group" [class.has-danger]="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)">
+                          <label class="control-label">Service Name</label>
+                          <input type="text" #name [(ngModel)]="service.name" formControlName="name" id="name" class="form-control"
+                            placeholder="Enter Service Name">
+                          <small *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)" class="form-control-feedback"> Service Name is Required Field</small>
+                        </div>
+                        <!-- <div *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)" class="alert alert-danger">
+                          <div *ngIf="form.controls['name'].errors.required">
+                            Service Name is required.
+                          </div>
+                        </div> -->
+                      </div>
+                      <!--/span-->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="status" class="control-label">Product Type</label>
+                          <select class="form-control custom-select" formControlName="product_type" id="status">
+                            <option value="">---Select Product Type---</option>
+                            <option *ngFor="let item of product_types; let i = index" [value]="item.product_type">
+                              {{item.product_type}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <!--/span-->
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group" [class.has-danger]="form.controls['price'].invalid && (form.controls['price'].dirty || form.controls['price'].touched)">
+                          <label class="control-label">Price</label>
+                          <input #price [(ngModel)]="service.price" type="text" formControlName="price" id="price" class="form-control"
+                            placeholder="Enter Price">
+                          <small *ngIf="form.controls['price'].invalid && (form.controls['price'].dirty || form.controls['price'].touched)" class="form-control-feedback"> Price is Required Field </small>
+                        </div>
+                      </div>
+                      <!--/span-->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="status" class="control-label">Occupation</label>
+                          <select class="form-control custom-select" formControlName="category" id="status">
+                              <option value="">---Select Category---</option>
+                            <option *ngFor="let item of categorys; let i = index" [value]="item.name">
+                              {{item.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <!--/span-->
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="control-label">Description</label>
+                          <textarea #description [(ngModel)]="service.description" formControlName="description" id="description" class="form-control" rows="5"
+                            placeholder="Enter Service's Description"></textarea>
+                          <!-- <small class="form-control-feedback"> This is inline help </small> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <button type="button" [disabled]="form.invalid" (click)="addService()" class="btn btn-success"> <i class="fa fa-check"></i>
+                      {{formButon}}</button>
+                    <button type="button" class="btn btn-danger"> <i class="fa fa-times"></i> Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <app-footer></app-footer>
+
+    </div>
+  </div>
+</body>
